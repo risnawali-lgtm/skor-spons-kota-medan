@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kalkulator Skor Spons Kota Medan</title>
+<style>
+:root{--ink:#142d37;--muted:#637780;--bg:#f1f6f5;--teal:#217c99;--line:#d7e1e2;--red:#c64d2b;--yellow:#d5a23c;--green:#438b58}
+*{box-sizing:border-box}body{margin:0;padding:24px;background:var(--bg);font-family:Arial,sans-serif;color:var(--ink)}
+main{max-width:1000px;margin:auto}.intro{margin:0 0 22px}.intro h1{font-size:clamp(25px,4vw,36px);margin:0 0 8px}.intro p{color:var(--muted);line-height:1.6;margin:0}
+.card{background:white;border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 8px 25px #163e4a0d}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.tag{font-size:12px;font-weight:bold;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);background:#e8f3f5;padding:7px 10px;border-radius:20px}
+label{display:block;font-weight:bold;font-size:15px;margin-bottom:8px}
+select,input[type=text]{width:100%;max-width:440px;padding:11px 12px;border:1px solid #cbd8da;border-radius:9px;font-size:15px;background:white;color:var(--ink)}
+.location{margin-bottom:22px}.item{margin:22px 0}.item-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.item label{font-weight:normal;font-size:17px;margin:0}.value{font-size:20px;font-weight:bold;min-width:35px;text-align:right}
+input[type=range]{width:100%;accent-color:var(--teal);margin:13px 0 0;cursor:pointer}
+.hint{font-size:12px;color:var(--muted);margin-top:5px}
+.formula{color:var(--muted);font-size:15px;line-height:1.6;margin:20px 0 14px}
+.score{font-size:68px;line-height:1;font-weight:bold;letter-spacing:-3px;margin:12px 0 5px}
+.category{font-size:21px;font-weight:bold;margin-bottom:20px}
+.bar{height:18px;border-radius:20px;background:linear-gradient(to right,var(--red),var(--yellow),var(--green));position:relative;margin:10px 0 7px}
+.marker{position:absolute;top:-5px;width:5px;height:28px;background:var(--ink);transform:translateX(-50%);border-radius:3px}
+.scale{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}
+.note{margin-top:20px;padding:13px 15px;border-radius:10px;background:#fff8e9;border:1px solid #f0dfba;color:#70551f;font-size:13px;line-height:1.55}
+button{margin-top:17px;border:0;border-radius:9px;padding:10px 15px;background:var(--teal);color:white;font-weight:bold;cursor:pointer}
+@media(max-width:600px){body{padding:14px}.card{padding:17px}.item label{font-size:15px}.score{font-size:58px}.category{font-size:18px}}
+</style>
+</head>
+<body>
+<main>
+ <header class="intro">
+  <h1>Kalkulator Skor Spons Kota Medan</h1>
+  <p>Kalkulator interaktif untuk menghitung skor kondisi kawasan berdasarkan ketersediaan ruang terbuka hijau, lahan kedap air, kondisi drainase, dan kepadatan bangunan bantaran.</p>
+ </header>
+ <section class="card">
+  <div class="topline"><h2 style="margin:0;font-size:21px">Hitung Skor Spons</h2><span class="tag">Wilayah kajian: Kota Medan</span></div>
+  <div class="location">
+   <label for="kecamatan">Kecamatan di Kota Medan</label>
+   <select id="kecamatan">
+    <option>Medan Tuntungan</option><option>Medan Johor</option><option>Medan Amplas</option><option>Medan Denai</option><option>Medan Area</option><option>Medan Kota</option><option>Medan Maimun</option><option>Medan Polonia</option><option>Medan Baru</option><option>Medan Selayang</option><option>Medan Sunggal</option><option>Medan Helvetia</option><option>Medan Petisah</option><option>Medan Barat</option><option>Medan Timur</option><option>Medan Perjuangan</option><option>Medan Tembung</option><option>Medan Deli</option><option>Medan Labuhan</option><option>Medan Marelan</option><option>Medan Belawan</option>
+   </select>
+  </div>
+  <div class="item"><div class="item-head"><label for="rth">Luas RTH (0–100, skala sampel)</label><span class="value" id="vrth">20</span></div><input type="range" id="rth" min="0" max="100" value="20"></div>
+  <div class="item"><div class="item-head"><label for="kedap">Persentase lahan kedap air (%)</label><span class="value" id="vkedap">80</span></div><input type="range" id="kedap" min="0" max="100" value="80"></div>
+  <div class="item"><div class="item-head"><label for="drainase">Kondisi drainase (0 = rusak, 100 = baik)</label><span class="value" id="vdrainase">30</span></div><input type="range" id="drainase" min="0" max="100" value="30"></div>
+  <div class="item"><div class="item-head"><label for="bantaran">Kepadatan bangunan bantaran (%)</label><span class="value" id="vbantaran">70</span></div><input type="range" id="bantaran" min="0" max="100" value="70"></div>
+  <div class="formula">Skor = 0,30 × RTH + 0,30 × (100 − kedap) + 0,25 × drainase + 0,15 × (100 − bantaran)</div>
+  <div class="score" id="score">24</div>
+  <div class="category" id="kategori">Prioritas tinggi: tangani lebih dulu</div>
+  <div class="bar"><div class="marker" id="marker" style="left:24%"></div></div>
+  <div class="scale"><span>0 · Lebih mendesak</span><span>100 · Relatif lebih baik</span></div>
+  <button type="button" id="reset">Kembalikan nilai contoh</button>
+  <div class="note"><strong>Catatan:</strong> nilai awal merupakan contoh simulasi, bukan data resmi Kota Medan. Masukkan nilai berdasarkan data dan metode pengukuran yang digunakan dalam tugas. Skor lebih rendah menunjukkan prioritas penanganan lebih tinggi.</div>
+ </section>
+</main>
+<script>
+const ids=["rth","kedap","drainase","bantaran"];
+function hitung(){
+ const r=+document.getElementById("rth").value,k=+document.getElementById("kedap").value,d=+document.getElementById("drainase").value,b=+document.getElementById("bantaran").value;
+ ids.forEach(id=>document.getElementById("v"+id).textContent=document.getElementById(id).value);
+ const skor=Math.round(.30*r+.30*(100-k)+.25*d+.15*(100-b));
+ document.getElementById("score").textContent=skor;
+ document.getElementById("marker").style.left=skor+"%";
+ document.getElementById("kategori").textContent=skor<=40?"Prioritas tinggi: tangani lebih dulu":skor<=70?"Prioritas sedang: perlu perhatian":"Prioritas rendah: kondisi relatif baik";
+}
+ids.forEach(id=>document.getElementById(id).addEventListener("input",hitung));
+document.getElementById("reset").addEventListener("click",()=>{[20,80,30,70].forEach((v,i)=>document.getElementById(ids[i]).value=v);hitung()});
+hitung();
+</script>
+</body>
+</html>
